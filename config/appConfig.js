@@ -3,7 +3,7 @@ const development = {
     username: process.env.PGUSER || 'u2ttt8xb2vzhsa6woviw',
     dbname: process.env.PGDATABASE || 'bkygc8nuiontet8fj0lf',
     password: process.env.PGPASSWORD || 'IFAASLRIQH0UlUm35dcs',
-    host: process.env.PGHOST || 'bkygc8nuiontet8fj0lf-postgresql.services.clever-cloud.com',
+    host: process.env.PGHOST || 'bkygc8nuiontet8fj0lf-postgresql.services.clever-cloud.com',  
     port: process.env.PGPORT || 5432,
     dialect: 'postgres',
     DATABASE_URL: process.env.DATABASE_URL,
