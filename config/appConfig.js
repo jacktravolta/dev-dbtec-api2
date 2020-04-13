@@ -1,9 +1,9 @@
 const development = {
   database: {
-    username: process.env.PGUSER || 'postgres',
-    dbname: process.env.PGDATABASE || 'test',
+    username: process.env.PGUSER || 'eudvrldehjeupe',
+    dbname: process.env.PGDATABASE || 'df3gahk468dq8g',
     password: process.env.PGPASSWORD || 'Xdslxdsl88998899',
-    host: process.env.PGHOST || 'localhost',
+    host: process.env.PGHOST || 'ec2-54-210-128-153.compute-1.amazonaws.com',
     port: process.env.PGPORT || 5432,
     dialect: 'postgres',
     DATABASE_URL: process.env.DATABASE_URL,
