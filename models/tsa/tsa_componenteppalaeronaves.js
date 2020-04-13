@@ -1,30 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('user', {
+  const Model = sequelize.define('tsa_componenteppalaeronaves', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-  
+
     _id: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+    /*/////////////////////////////////////*/
 
-    secret: {
+    desc: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
 
     
 
 
   });
-  return User;
+
+  return Model;
 };
+
+    

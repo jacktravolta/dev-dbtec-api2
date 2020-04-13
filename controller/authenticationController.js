@@ -2,24 +2,24 @@ const bcrypt = require('bcrypt');
 const jsonWebToken = require('jsonwebtoken');
 
 const appConfig = require('./../config/appConfig');
-const { User } = require('../models');
-
+const { user } = require('../models');
+const uuid = require('uuid');
 
 module.exports = {
   handleSignUp: (req, res) => {
     const username = req.body.username.trim();
     const secret = req.body.secret.trim();
-
-    console.log(req.body);
     // Check if username already exists
-    User.findAll({
+
+    
+    user.findAll({
       where: { username },
     })
-      .then((user) => {
-        if (user.length > 0) {
+      .then((data) => {
+        if (data.length > 0) {
           return res
             .status(400)
-            .send({ error: true, message: 'The username is already registered.' });
+            .send({ error: true, message: 'El nombre de usuario ya existe.' });
         }
 
         const salt = bcrypt.genSaltSync(10);
@@ -30,17 +30,25 @@ module.exports = {
           secret: hash,
         };
 
-        return User.create(newUser)
+        req.body._id = uuid.v4();
+        req.body.secret = hash;
+        data = req.body
+
+        return user.create(data)
           .then(() => res.status(201).json({ error: false, data: 'OK' }))
           .catch(err => res.status(500).send({ error: err.message }));
       })
       .catch(err => res.status(500).json({ error: true, message: err.message }));
+      
   },
+
   handleSignIn: (req, res) => {
+    
     const { username } = req.body;
     const { secret } = req.body;
-
-    User.findAll({
+    
+    
+    user.findAll({
       where: {
         username,
       },
@@ -49,7 +57,7 @@ module.exports = {
         if (user.length === 0) {
           return res.status(401).json({
             error: true,
-            message: 'No user with the given username',
+            message: 'Ninguna usuario con es nombre',
           });
         }
         // checking the secret

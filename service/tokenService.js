@@ -5,9 +5,9 @@ const appConfig = require('./../config/appConfig');
 exports.isBearerAuthenticated = function isBearerAuthenticated(req, res, next) {
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
   if (token) {
-    jsonWebToken.verify(token, appConfig.jwtSecret, (err, decoded) => {
+     jsonWebToken.verify(token, appConfig.jwtSecret, (err, decoded) => {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });
+        return res.json({ success: false, message: 'Fallo autentificación token.' });
       }
       req.decoded = decoded;
       return next();
@@ -15,7 +15,7 @@ exports.isBearerAuthenticated = function isBearerAuthenticated(req, res, next) {
   } else {
     return res.status(403).send({
       success: false,
-      message: 'No token provided.',
+      message: 'No se envio token.',
     });
   }
 };

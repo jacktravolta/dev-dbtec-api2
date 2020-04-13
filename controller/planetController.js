@@ -1,27 +1,21 @@
 const got = require('got');
-
 const { SWAPI_BASE_URL } = require('./../config/appConfig');
-
 const { Planet } = require('../models');
 
 exports.addPlanet = async function addPlanet(req, res) {
   const { name } = req.body;
 
   try {
-    const response = await got(`${SWAPI_BASE_URL}/planets/?search=${name}`, { json: true });
-
-    if (response.body.results.length) {
-      const data = response.body.results[0];
-      delete data.created;
-      delete data.edited;
+      let data = req.body;
+      console.log(data);
       return Planet.create(data)
         .then(planet => res.status(200).json({ error: false, data: planet }))
         .catch(err => res.status(500).json({ error: true, message: err.message }));
-    }
-    return res.status(404).json({ error: false, data: 'Not data found on SWAPI, so can\'t add new planet.' });
   } catch (err) {
     return res.status(500).json({ error: true, message: err.message });
   }
+
+
 };
 
 exports.allPlanet = function allPlanet(req, res) {

@@ -24,24 +24,31 @@ if (config.database.DATABASE_URL) {
   });
 }
 
-fs
-  .readdirSync(__dirname)
-  .filter(file =>
-    (file.indexOf('.') !== 0) &&
-    (file !== basename) &&
-    (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    const model = sequelize.import(path.join(__dirname, file));
-    db[model.name] = model;
-  });
-
+let tmpdirname = [];
+tmpdirname[0] = __dirname;
+tmpdirname[1] = __dirname + "/tsa";
+for (i = 0; i <  tmpdirname.length; i++) {
+      fs
+        .readdirSync(tmpdirname[i])
+        .filter(file =>
+          (file.indexOf('.') !== 0) &&
+          (file !== basename) &&
+          (file.slice(-3) === '.js'))
+       .forEach((file) => {
+           const model = sequelize.import(path.join(tmpdirname[i] , file));
+           db[model.name] = model;
+        });
+}
 Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
+if (db[modelName].associate) {
     db[modelName].associate(db);
-  }
+}
+
 });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+
 
 module.exports = db;

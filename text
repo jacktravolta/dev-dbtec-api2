@@ -1,0 +1,4 @@
+
+> node-sequelize-rest-api@0.0.0 start /var/www/api/node-sequelize-rest-api
+> nodemon ./bin/www
+
