@@ -17,7 +17,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');
   next();
 });
-*/ 
+*/ test
 app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(bodyParser.json());
