@@ -1,8 +1,8 @@
 {
-  "name": "node-sequelize-rest-api",
+  "name": "dev-dbtec-api",
   "version": "0.0.0",
   "description": "Rest api built with node.js using sequelize",
-  "private": true,
+  "private": true, 
   "scripts": {
     "start": "nodemon ./bin/www"
   },
