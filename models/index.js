@@ -26,8 +26,8 @@ if (config.database.DATABASE_URL) {
 
 let tmpdirname = [];
 tmpdirname[0] = __dirname;
-tmpdirname[1] = __dirname + "/tsa";
-for (i = 0; i <  tmpdirname.length; i++) {
+tmpdirname[1] = __dirname + "/tsa"; 
+for (i = 0; i <  tmpdirname.length-1; i++) {
       fs
         .readdirSync(tmpdirname[i])
         .filter(file =>
@@ -35,8 +35,10 @@ for (i = 0; i <  tmpdirname.length; i++) {
           (file !== basename) &&
           (file.slice(-3) === '.js'))
        .forEach((file) => {
-           const model = sequelize.import(path.join(tmpdirname[i] , file));
-           db[model.name] = model;
+              if (file != "schemas.js"){ 
+                const model = sequelize.import(path.join(tmpdirname[i] , file));
+                db[model.name] = model; 
+              }
         });
 }
 Object.keys(db).forEach((modelName) => {

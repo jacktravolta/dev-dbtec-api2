@@ -9,8 +9,8 @@ const development = {
     DATABASE_URL: process.env.DATABASE_URL,
   },
   jwtSecret: process.env.JWT_SECRET || 'f!DT3[i+Zl(W}17:%@]Tly*#/F&&L',
-  appPort: process.env.PORT || 3001,
-  SWAPI_BASE_URL: 'https://swapi.co/api',
+  appPort: process.env.PORT || 3003,
+  SWAPI_BASE_URL: '',
 };
 
 const production = {
@@ -25,7 +25,7 @@ const production = {
   },
   jwtSecret: process.env.JWT_SECRET || 'f!DT3[i+Zl(W}17:%@]Tly*#/F&&L',
   appPort: process.env.PORT || 3001,
-  SWAPI_BASE_URL: 'https://swapi.co/api',
+  SWAPI_BASE_URL: '', 
 };
 
 

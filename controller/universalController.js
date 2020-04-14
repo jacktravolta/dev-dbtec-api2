@@ -1,7 +1,10 @@
 const got = require('got');
 const { SWAPI_BASE_URL } = require('./../config/appConfig');
+//const = require('./../models/tsaappConfig');
 const uuid = require('uuid');
 
+const Schema = require("../models/schemas.js")
+ 
  
 //var { User } = require('../models/index.js'); 
 
@@ -27,7 +30,7 @@ function extModel(xmodel,xschema)
         pool: {
           max: 5,
           min: 0,
-          acquire: 30000,
+          acquire: 30000, 
           idle: 10000,
         },
       });
@@ -35,34 +38,37 @@ function extModel(xmodel,xschema)
    }
 
    let tmpdirname = [];
-   tmpdirname =  "/var/www/api/node-sequelize-rest-api/models/tsa";
+
+   tmpdirname =  path.resolve('models/tsa');
+   
    let file = xmodel;
    const model = sequelize.import(path.join(tmpdirname , file));
    db[model.name] = model;
    db.sequelize = sequelize;
    db.Sequelize = Sequelize;
-   return(model)
+   return(model) 
    
 
 }
 
 exports.all = function all(req, res) {
+    console.log(req.headers);
     const order = [['id', 'ASC']];
     const limit = req.query.limit || 10;
     const offset = req.query.offset || 0;
-      
-    let model  = extModel(req.headers.model) 
     let schema = req.headers.schema; 
-
-    if (!schema){
-      model
-          .findAll({ order, limit, offset })
-          .then(models => res.status(200).json({ error: false, data: models }))
-          .catch(err => res.status(500).json({ error: true, message: err.message }));
-    }      
+    let model  = req.headers.model;
+    if (schema == 1){
+       res.send(Schema.schema(model));
+    }
     else{
-        res.send( data);
-    }      
+      model = extModel(model)
+      model
+       .findAll({ order, limit, offset })
+       .then(models => res.status(200).json({ error: false, data: models }))
+       .catch(err => res.status(500).json({ error: true, message: err.message }));
+    }          
+         
     
 };
 

@@ -2,21 +2,22 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
-
+var cors = require('cors');
 const routeV1 = require('./routes/index');
-
-
-const app = express();
+const app = express();   
+var cors = require('cors')
+app.use(cors())
 
 // *** cross domain requests *** //
 
+/*
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');
   next();
 });
-
+*/
 app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -27,7 +28,7 @@ app.use('/api/v1', routeV1);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
+  const err = new Error('No Encontrado');
   err.status = 404;
   next(err);
 });
